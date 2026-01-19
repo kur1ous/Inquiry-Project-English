@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="The inquirer's final synthesis on conscience as innate versus constructed, with comparison to your own conclusion.">
+    <title>Conclusion — Conscience Inquiry</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body>
+    <div class="site-wrapper">
+        <header class="site-header">
+            <div class="site-header__inner">
+                <a href="index.html" class="site-logo">Conscience Inquiry</a>
+                <nav aria-label="Main navigation">
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <section class="conclusion-intro">
+                    <h1>Conclusion</h1>
+                    <p class="text-xl text-muted">
+                        You have completed your journey.
+                    </p>
+                </section>
+
+                <section class="position-comparison">
+                    <h2>Your Journey</h2>
+                    <div class="comparison-panel">
+                        <div class="comparison-panel__column">
+                            <div class="comparison-panel__label">Where You Started</div>
+                            <div id="original-position" class="comparison-panel__value">–</div>
+                        </div>
+                        <div class="comparison-panel__column comparison-panel__column--highlight">
+                            <div class="comparison-panel__label">Where You Ended</div>
+                            <div id="final-position" class="comparison-panel__value">–</div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-6">
+                        <h3 class="card__title">Your Interpretation</h3>
+                        <p id="user-synthesis" class="card__content">
+                            <em class="text-muted">None recorded.</em>
+                        </p>
+                    </div>
+                </section>
+
+                <section class="inquirer-synthesis">
+                    <h2>My Conclusion</h2>
+
+                    <div class="card card--elevated">
+                        <p class="text-lg leading-relaxed">
+                            I conclude that the question itself contains a false dichotomy.
+                        </p>
+                        <p class="leading-relaxed">
+                            <strong>Conscience is neither purely innate nor purely constructed;</strong> it is an
+                            emergent property that arises from biological evolution and environmental conditioning.
+                        </p>
+                        <p class="leading-relaxed">
+                            The evidence reveals:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Biological foundations exist.</strong> AI, ACC, vmPFC provide dedicated
+                                hardware for moral cognition. Infants demonstrate fairness preferences before
+                                socialization.
+                                Non-human primates share our intuitions about equity. These cannot be purely cultural
+                                inventions.
+                            </li>
+                            <li>
+                                <strong>However, biology is not destiny.</strong> Romanian orphans with intact brains
+                                failed
+                                to develop
+                                normal moral cognition without relational input. Epigenetic changes from trauma can
+                                rewrite
+                                moral-emotional systems. Starvation can temporarily collapse moral character in the most
+                                principled
+                                individuals.
+                            </li>
+                            <li>
+                                <strong>The interaction goes both ways.</strong> Environment shapes biology
+                                (epigenetics), but
+                                biology constrains what environments can produce (we cannot teach an infant to approve
+                                of unfairness).
+                                Neither factor is explanatorily prior.
+                            </li>
+                        </ul>
+                        <p class="leading-relaxed">
+                            The more precise answer to the inquiry question does not exist yet.
+                            However, these factors interact dynamically, and neither functions without the other.
+                        </p>
+                        <p class="leading-relaxed mb-0">
+                            Can conscience be completely engineered out through systemic conditioning? The evidence
+                            suggests
+                            <strong>yes, under extreme conditions</strong>, but with difficulty, and often with partial
+                            recovery
+                            when conditions improve. The innate foundations are resilient, but not invulnerable. This
+                            should
+                            inform how we think about moral responsibility, rehabilitation, and the design of social
+                            institutions.
+                        </p>
+                    </div>
+                </section>
+
+                <section class="reflection-final">
+                    <h2>Final</h2>
+                    <p>
+                        The purpose of this journey was not to arrive at certainty, but to develop a <em>more
+                            sophisticated
+                            uncertainty</em>. If your thinking has become more nuanced, if you can now articulate why
+                        the
+                        question
+                        is harder than it first appears, then I have succeeded.
+                    </p>
+                    <p>
+                        Thank you for taking this journey.
+                    </p>
+                </section>
+
+                <section class="export-section text-center mt-12">
+                    <button type="button" id="export-btn" class="btn btn--secondary">
+                        Export Your Journey as Text File
+                    </button>
+                    <p class="text-sm text-muted mt-4">
+                        Download a record of your initial position, reflections, and final interpretation.
+                    </p>
+                </section>
+
+                <section class="restart text-center mt-8 pt-8 border-t">
+                    <p class="text-muted">
+                        Want to start over?
+                    </p>
+                    <button type="button" id="reset-btn" class="btn btn--ghost">
+                        Reset All Responses
+                    </button>
+                </section>
+
+                <nav class="page-nav" aria-label="Page navigation">
+                    <a href="synthesis.html" class="page-nav__link page-nav__link--prev">
+                        <span>← Back</span>
+                        <span class="page-nav__title">Your Interpretation</span>
+                    </a>
+                    <a href="index.html" class="page-nav__link page-nav__link--next">
+                        <span>Return to</span>
+                        <span class="page-nav__title">Home →</span>
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>An inquiry project exploring the nature of human conscience.</p>
+        </footer>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/interactions.js"></script>
+    <script src="js/synthesis.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const responses = getAllResponses();
+
+            // Display positions
+            const originalPos = document.getElementById('original-position');
+            const finalPos = document.getElementById('final-position');
+            const userSynthesis = document.getElementById('user-synthesis');
+
+            originalPos.textContent = formatConscienceSlider(responses.initialSlider);
+
+            if (responses.finalSlider !== null) {
+                finalPos.textContent = formatConscienceSlider(responses.finalSlider);
+            } else {
+                finalPos.textContent = 'Not recorded';
+            }
+
+            if (responses.synthesisStatement && responses.synthesisStatement.trim()) {
+                userSynthesis.textContent = responses.synthesisStatement;
+            }
+
+            // Export button
+            document.getElementById('export-btn').addEventListener('click', function () {
+                exportSynthesis();
+            });
+
+            // Reset button
+            document.getElementById('reset-btn').addEventListener('click', function () {
+                if (confirm('This will erase all your responses. Are you sure?')) {
+                    clearAllStorage();
+                    showConfirmation('All responses cleared. Redirecting...');
+                    setTimeout(function () {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

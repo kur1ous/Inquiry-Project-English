@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="An interactive inquiry exploring whether human conscience is innate or socially constructed.">
+    <title>The Nature of Conscience An Interactive Inquiry</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body>
+    <div class="site-wrapper">
+        <header class="site-header">
+            <div class="site-header__inner">
+                <a href="index.html" class="site-logo">Conscience Inquiry</a>
+                <nav aria-label="Main navigation">
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <section class="hero text-center">
+                    <h1>The Nature of Conscience</h1>
+                    <p class="text-xl text-muted leading-relaxed mb-8">
+                        An interactive inquiry into what makes us moral beings.
+                    </p>
+                </section>
+
+                <section class="inquiry-question">
+                    <div class="card card--accent">
+                        <p class="text-lg leading-relaxed mb-0">
+                            <strong>Inquiry Question:</strong> To what extent is the human conscience an innate
+                            biological trait, versus a social construct that can be completely engineered out of a
+                            person through systemic conditioning?
+                        </p>
+                    </div>
+                </section>
+
+                <section class="introduction">
+                    <h2>Before We Begin</h2>
+                    <p>
+                        This is not a presentation. It is a <strong>journey</strong>, a guided exploration through
+                        neuroscience, psychology, history, and philosophy. You will encounter evidence that may
+                        challenge your assumptions.
+                    </p>
+                    <p>
+                        At each stage, you will be asked to reflect. Your responses are saved locally so
+                        you can see how your thinking evolves.
+                    </p>
+                    <p>
+                        There is no "correct" answer. The goal is to develop an understanding of a
+                        genuinely complex question.
+                    </p>
+                </section>
+
+                <section class="initial-stance">
+                    <h2>Your Starting Position</h2>
+                    <p>
+                        Before you see any evidence, record your current intuition. Where do you stand on this question?
+                    </p>
+
+                    <div class="slider-container">
+                        <div class="slider-labels">
+                            <span>Fully Constructed<br><small class="text-muted">Environment determines
+                                    conscience</small></span>
+                            <span>Fully Innate<br><small class="text-muted">Biology determines conscience</small></span>
+                        </div>
+                        <input type="range" id="initial-slider" class="slider-input" min="0" max="100" value="50"
+                            aria-label="Position on conscience as innate versus constructed">
+                        <div id="slider-value" class="slider-value">Exactly balanced</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="initial-reason" class="input-label">
+                            Why do you lean this way? (1 to 3 sentences)
+                        </label>
+                        <span class="input-hint">Draw on anything: personal experience, things you've read,
+                            intuition.</span>
+                        <textarea id="initial-reason" class="textarea-input"
+                            placeholder="I believe conscience is primarily..." rows="4"></textarea>
+                        <div id="reason-char-count" class="char-count">0 / 300 characters</div>
+                    </div>
+                </section>
+
+                <section class="journey-preview">
+                    <h2>The Journey Ahead</h2>
+                    <p>You will explore six evidence pillars:</p>
+                    <ol>
+                        <li><strong>The Social Brain:</strong> Neural architecture of empathy and moral cognition</li>
+                        <li><strong>Fairness:</strong> Moral intuitions in infants and primates</li>
+                        <li><strong>Epigenetic Imprint:</strong> How trauma rewrites moral circuitry across
+                            generations</li>
+                        <li><strong>Family as Moral Incubator:</strong> What happens when the primary moral institution
+                            is destroyed</li>
+                        <li><strong>The Minnesota Starvation Experiment:</strong> Physiological limits of morality</li>
+                        <li><strong>Philosophical Counterpoints:</strong> Locke, Rousseau, and the nature/nurture
+                            debate</li>
+                    </ol>
+                    <p>
+                        After the evidence, you will construct your own interpretation and compare it to your starting
+                        position.
+                    </p>
+                </section>
+
+                <section class="begin-journey">
+                    <div class="text-center">
+                        <button type="button" id="begin-btn" class="btn btn--primary btn--large">
+                            Begin the Inquiry →
+                        </button>
+                        <p class="text-sm text-muted mt-4">
+                            Your responses are saved locally and never leave your device.
+                        </p>
+                    </div>
+                </section>
+
+                <nav class="page-nav" aria-label="Page navigation">
+                    <span></span>
+                    <a href="biology.html" class="page-nav__link page-nav__link--next">
+                        <span>First Pillar</span>
+                        <span class="page-nav__title">The Social Brain →</span>
+                    </a>
+                </nav>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>An inquiry project exploring the nature of human conscience.</p>
+        </footer>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/interactions.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slider = document.getElementById('initial-slider');
+            const sliderValue = document.getElementById('slider-value');
+            const reasonTextarea = document.getElementById('initial-reason');
+            const charCount = document.getElementById('reason-char-count');
+            const beginBtn = document.getElementById('begin-btn');
+
+            // Load any previously saved values
+            const savedSlider = loadFromStorage('initial_slider', 50);
+            const savedReason = loadFromStorage('initial_reason', '');
+
+            slider.value = savedSlider;
+            reasonTextarea.value = savedReason;
+
+            // Slider display update
+            function updateSliderDisplay() {
+                const value = parseInt(slider.value, 10);
+                sliderValue.textContent = formatConscienceSlider(value);
+            }
+
+            slider.addEventListener('input', function () {
+                updateSliderDisplay();
+                saveToStorage('initial_slider', parseInt(slider.value, 10));
+            });
+
+            updateSliderDisplay();
+
+            // Character counter
+            function updateCharCount() {
+                const length = reasonTextarea.value.length;
+                charCount.textContent = length + ' / 300 characters';
+
+                if (length > 300) {
+                    charCount.style.color = 'var(--color-warning)';
+                } else if (length > 50) {
+                    charCount.style.color = 'var(--color-success)';
+                } else {
+                    charCount.style.color = 'var(--color-text-muted)';
+                }
+            }
+
+            reasonTextarea.addEventListener('input', function () {
+                updateCharCount();
+                saveToStorage('initial_reason', reasonTextarea.value);
+            });
+
+            updateCharCount();
+
+            // Begin button
+            beginBtn.addEventListener('click', function () {
+                const sliderVal = parseInt(slider.value, 10);
+                const reasonVal = reasonTextarea.value.trim();
+
+                saveToStorage('initial_slider', sliderVal);
+                saveToStorage('initial_reason', reasonVal);
+                markPageCompleted('index');
+
+                if (reasonVal.length < 20) {
+                    showConfirmation('Consider adding a brief explanation for your position.', 'info');
+                    reasonTextarea.focus();
+                    return;
+                }
+
+                showConfirmation('Position saved. Beginning the inquiry...');
+
+                setTimeout(function () {
+                    window.location.href = 'biology.html';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+
+</html>

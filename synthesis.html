@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Build your personal synthesis on whether conscience is innate or constructed based on the evidence you've encountered.">
+    <title>Your Synthesis Conscience Inquiry</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+</head>
+
+<body>
+    <div class="site-wrapper">
+        <header class="site-header">
+            <div class="site-header__inner">
+                <a href="index.html" class="site-logo">Conscience Inquiry</a>
+                <nav aria-label="Main navigation">
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <div class="content-wrapper">
+                <section class="synthesis-intro">
+                    <h1>Interpretation</h1>
+                    <p class="text-xl text-muted">
+                        You've encountered evidence from six domains.
+                    </p>
+                </section>
+
+                <section class="original-position">
+                    <h2>Where You Started</h2>
+                    <div class="comparison-panel">
+                        <div class="comparison-panel__column">
+                            <div class="comparison-panel__label">Your Original Position</div>
+                            <div id="original-slider-value" class="comparison-panel__value">Loading...</div>
+                        </div>
+                        <div class="comparison-panel__column">
+                            <div class="comparison-panel__label">Your Original Reasoning</div>
+                            <p id="original-reason-display" class="text-muted">Loading...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="evidence-review">
+                    <h2>Your Journey Through the Evidence</h2>
+                    <p>
+                        Review your reflections from each pillar.
+                    </p>
+
+                    <div id="evidence-summary" class="mt-6">
+                        <!-- Populated by JavaScript -->
+                        <p class="text-muted">Loading your reflections...</p>
+                    </div>
+                </section>
+
+                <section class="synthesis-builder">
+                    <h2>Construct Your Interpretation</h2>
+                    <p>
+                        Based on all the evidence, where do you now stand? Use the slider and then write your synthesis.
+                    </p>
+
+                    <form id="synthesis-form">
+                        <div class="slider-container">
+                            <div class="slider-labels">
+                                <span>Fully Constructed<br><small class="text-muted">Environment determines
+                                        conscience</small></span>
+                                <span>Fully Innate<br><small class="text-muted">Biology determines
+                                        conscience</small></span>
+                            </div>
+                            <input type="range" id="final-slider" class="slider-input" min="0" max="100" value="50"
+                                aria-label="Your final position on conscience as innate versus constructed">
+                            <div id="final-slider-value" class="slider-value">Exactly balanced</div>
+                        </div>
+
+                        <div class="input-group mt-8">
+                            <label for="synthesis-statement" class="input-label">
+                                Statement
+                            </label>
+                            <span class="input-hint">
+                                Complete this thought: "Based on the evidence from neuroscience, developmental
+                                psychology, epigenetics,
+                                sociology, physiology, and philosophy, I conclude that conscience is..."
+                            </span>
+                            <textarea id="synthesis-statement" class="textarea-input"
+                                placeholder="Conscience is neither purely innate nor purely constructed. The evidence suggests that..."
+                                rows="8" required></textarea>
+                            <div id="synthesis-char-count" class="char-count">0 / 800 characters</div>
+                        </div>
+
+                        <div class="btn-group">
+                            <button type="submit" class="btn btn--primary btn--large">
+                                View Conclusion
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <nav class="page-nav" aria-label="Page navigation">
+                    <a href="philosophy.html" class="page-nav__link page-nav__link--prev">
+                        <span>← Back</span>
+                        <span class="page-nav__title">Philosophical Counterpoints</span>
+                    </a>
+                    <span></span>
+                </nav>
+            </div>
+        </main>
+
+        <footer class="site-footer">
+            <p>An inquiry project exploring the nature of human conscience.</p>
+        </footer>
+    </div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/interactions.js"></script>
+    <script src="js/synthesis.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize slider display
+            initSlider('final-slider', 'final-slider-value', formatConscienceSlider);
+
+            // Initialize character counter
+            const synthesisTextarea = document.getElementById('synthesis-statement');
+            const charCount = document.getElementById('synthesis-char-count');
+
+            function updateCharCount() {
+                const length = synthesisTextarea.value.length;
+                charCount.textContent = length + ' / 800 characters';
+
+                if (length < 100) {
+                    charCount.style.color = 'var(--color-text-muted)';
+                } else if (length <= 800) {
+                    charCount.style.color = 'var(--color-success)';
+                } else {
+                    charCount.style.color = 'var(--color-warning)';
+                }
+            }
+
+            synthesisTextarea.addEventListener('input', updateCharCount);
+            updateCharCount();
+        });
+    </script>
+
+    <style>
+        .evidence-summary__item {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            padding: var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .evidence-summary__title {
+            font-size: var(--text-sm);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-2);
+        }
+
+        .evidence-summary__text {
+            font-size: var(--text-sm);
+            color: var(--color-text-muted);
+            margin: 0;
+            line-height: var(--line-height-relaxed);
+        }
+    </style>
+</body>
+
+</html>
